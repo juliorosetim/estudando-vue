@@ -1,0 +1,41 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+    <div>
+        <button v-on:click="emitirAlerta">Exibir Alerta</button>
+    </div>
+    <br>
+    <br>
+    <div>
+        <input type="text" v-on:keyup="keydown" placeholder="alerta no keydown">
+        <p>{{ valorKeydown }}</p>
+    </div>
+    <br>
+    <br>
+    <div>
+        <input type="text" v-on:keydown.enter="onEnter" placeholder="alerta no enter">
+        <p>{{ valorEnter }}</p>
+    </div>    
+
+</div>
+
+<script>
+    new Vue({
+        el:"#app",
+        data: {
+            valorKeydown: "",
+            valorEnter: ""
+        },
+        methods: {
+            emitirAlerta() {
+                alert("Alerta teste")
+            },
+            keydown() {
+                this.valorKeydown= event.target.value;
+            },
+            onEnter() {
+                this.valorEnter=event.target.value;
+            }
+        }
+    })
+</script>

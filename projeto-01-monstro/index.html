@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Matador de Monstro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600" rel="stylesheet">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="panel scores">
+            <div class="score">
+                <h1>Jogador</h1>
+                <progress class="life-bar" max="100" :value=vidaJogador></progress>
+            </div>
+            <div class="score">
+                <h1>Monstro</h1>
+                <progress class="life-bar" max="100" :value=vidaMonstro></progress>
+            </div>
+        </div>
+        <div class="panel result" v-show="vidaJogador <= 0 || vidaMonstro <= 0">
+            <div class="win" v-show="vidaMonstro <= 0">Você ganhou!!! :)</div>
+            <div class="lose" v-show="vidaJogador <= 0">Você perdeu! :(</div>
+        </div>
+        <div class="panel buttons">
+            <template v-if="jogoIniciado">
+                <button class="btn attack" @Click="reduzirVidas" >Ataque</button>
+                <button class="btn especial-attack" @click="aplicarEspecial">Ataque Especial</button>
+                <button class="btn heal" @click="curarVida">Curar</button>
+                <button class="btn give-up" @Click="iniciarJogo">Desistir</button>
+            </template>
+            <button class="btn new-game" v-if="!jogoIniciado" @Click="iniciarJogo">Iniciar Jogo</button>
+        </div>
+        <div class="panel logs" v-show="log.length > 0">
+            <ul>
+                <template v-for="valor in log">
+                    <li :class="valor.tipoLog"> {{ valor.log }}</li>
+                </template>
+            </ul>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
